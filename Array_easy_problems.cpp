@@ -81,6 +81,16 @@ int remove_duplicates_optimum(vector<int>& arr) {
     return (i+1);
 }
 
+
+void array_left_rotate(vector<int>& arr) {
+    int n = arr[0];
+    int size = arr.size();
+    for(int i=1; i<size; i++) {
+        arr[i-1] = arr[i];
+    }
+    arr[size-1] = n;
+}
+
 int main() {
 
     int n;
@@ -102,9 +112,13 @@ int main() {
     // for(int i=0; i<result4_index; i++) {
     //     cout << arr[i] << " ";
     // }
-    int result5_index = remove_duplicates_optimum(arr);
-    for(int i=0; i<result5_index; i++) {
-        cout << arr[i] << " ";
+    // int result5_index = remove_duplicates_optimum(arr);
+    // for(int i=0; i<result5_index; i++) {
+    //     cout << arr[i] << " ";
+    // }
+    array_left_rotate(arr);
+    for(auto it: arr) {
+        cout << it << " ";
     }
     return 0;
 }
