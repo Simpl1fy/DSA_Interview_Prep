@@ -91,6 +91,83 @@ void array_left_rotate(vector<int>& arr) {
     arr[size-1] = n;
 }
 
+void array_left_rotate_d(vector<int> arr, int d) {
+    int n = arr.size();
+    d = d%n;
+    
+    // creating a temporary array to store the first d variables
+    vector<int> temp;
+    for(int i=0; i<d; i++) {
+        temp.push_back(arr[i]);
+    }
+
+    // Now shifting the elements in the original array
+    for(int i=d; i<n; i++) {
+        arr[i-d] = arr[i];
+    }
+    // Now inserting the elements in temp array to the end of the array
+    for(int i=n-d; i<n; i++) {
+        arr[i] = temp[i-(n-d)];
+    }
+    for(int i=0; i<n; i++) {
+        cout << arr[i] << " ";
+    }
+}
+
+void reverse_array(vector<int>& arr, int start, int end)
+{
+    while(start < end) {
+        swap(arr[start], arr[end]);
+        start++;
+        end--;
+    }
+}
+
+void array_left_rotate_optimal(vector<int> arr, int d, int n) {
+    reverse_array(arr, 0, d-1);
+    reverse_array(arr, d, n-1);
+    reverse_array(arr, 0, n-1);
+
+    for(auto it : arr) {
+        cout << it << " ";
+    }
+}
+
+void array_right_rotate_brute(vector<int> arr, int d, int n) {
+    if (n == 1 || n == 0) {
+        return;
+    }
+    d = d%n;
+    if(d>n) {
+        return;
+    }
+    vector<int> temp;
+    for(int i=n-d; i<n; i++) {
+        temp.push_back(arr[i]);
+    }
+    for(int i=n-d-1; i>=0; i--) {
+        arr[i+d] = arr[i];
+    }
+    for(int i=0; i<d; i++) {
+        arr[i] = temp[i];
+    }
+
+    // printing the array
+    for(int i=0; i<n; i++) {
+        cout << arr[i] << " ";
+    }
+}
+
+void array_right_rotate_optimal(vector<int> arr, int d, int n) {
+    reverse_array(arr, n-d, n-1);
+    reverse_array(arr, 0, d);
+    reverse_array(arr, 0, n-1);
+
+    for(int i=0; i<n; i++) {
+        cout << arr[i] << " ";
+    }
+}
+
 int main() {
 
     int n;
@@ -116,9 +193,17 @@ int main() {
     // for(int i=0; i<result5_index; i++) {
     //     cout << arr[i] << " ";
     // }
-    array_left_rotate(arr);
-    for(auto it: arr) {
-        cout << it << " ";
-    }
+    // array_left_rotate(arr);
+    // for(auto it: arr) {
+    //     cout << it << " ";
+    // }
+
+    array_left_rotate_d(arr, 3);
+    cout << endl;
+    array_left_rotate_optimal(arr, 3, arr.size());
+    cout << endl;
+    array_right_rotate_brute(arr, 3, arr.size());
+    cout << endl;
+    array_right_rotate_optimal(arr, 2, arr.size());
     return 0;
 }
