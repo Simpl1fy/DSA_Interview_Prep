@@ -216,6 +216,15 @@ void array_move_zeros_end_optimal(vector<int> arr, int n) {
     }
 }
 
+int linear_search(vector<int> arr, int n, int x) {
+    for(int i=0; i<n; i++) {
+        if(arr[i] == x) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 int main() {
 
     int n;
@@ -258,5 +267,12 @@ int main() {
     array_move_zeros_end_brute(arr, arr.size());
     cout << endl;
     array_move_zeros_end_optimal(arr, arr.size());
+    cout << endl;
+    int ls_result = linear_search(arr, arr.size(), 15);
+    if(ls_result == -1) {
+        cout << "Element not present" << endl;
+    } else {
+        cout << "Elment found at index = " << ls_result << endl;
+    }
     return 0;
 }
